@@ -8,7 +8,7 @@ async function grabHTML(url) {
   return response.text();
 }
 
-async function display() {
+async function scrape() {
   const { JSDOM } = require("jsdom");
   try {
     let html = await grabHTML(
@@ -19,13 +19,30 @@ async function display() {
 
     const dom = await new JSDOM(html);
 
-    console.log(await dom.window.document.querySelector("table").textContent);
+    return dom.window.document.querySelector("table").textContent;
   } catch (error) {
     console.error(error);
   }
 }
 
+async function parse() {
+  let raw = await scrape();
+
+  //some RegEx to remove the noise
+  raw = raw.replace(/[^a-z0-9]/gim, " ").replace(/\s+/g, " ");
+
+  //into a nice array
+  const [...info] = raw.split(" ");
+
+  return info;
+}
+
 display();
+
+async function display() {
+  console.log(await parse());
+}
+
 // (async () => {
 //   const browser = await puppeteer.launch({
 //     headless: true,
