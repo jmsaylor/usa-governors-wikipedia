@@ -40,7 +40,15 @@ async function parse() {
 display();
 
 async function display() {
-  console.log(await parse());
+  const arr = await parse();
+  const data = [];
+
+  // for (let x = 0; x < arr.length; x++) {
+  //   if (x % 19 == 0) {
+  //     data.push(arr[x]);
+  //   }
+  // }
+  console.log(data);
 }
 
 // (async () => {
