@@ -1,33 +1,37 @@
-const puppeteer = require("puppeteer");
+const fetch = require("node-fetch");
+const { JSDOM } = require("jsdom");
 
 async function grabHTML(url) {
-  const fetch = require("node-fetch");
-
   let response = await fetch(url);
-
   return response.text();
 }
 
-async function scrape() {
-  const { JSDOM } = require("jsdom");
+async function getDOM() {
   try {
     let html = await grabHTML(
       "https://en.wikipedia.org/wiki/List_of_United_States_governors"
     );
-
-    // console.log(html);
-
     const dom = await new JSDOM(html);
-
-    return dom.window.document.querySelector("table").textContent;
+    return dom.window.document;
   } catch (error) {
     console.error(error);
   }
 }
 
-async function parse() {
-  let raw = await scrape();
+function searchDOM(dom) {
+  return dom.querySelector("table").textContent;
+}
 
+display();
+
+async function display() {
+  let dom = await getDOM();
+  dom = searchDOM(dom);
+
+  console.log(dom);
+}
+
+async function arraify(raw) {
   //some RegEx to remove the noise
   raw = raw.replace(/[^a-z0-9]/gim, " ").replace(/\s+/g, " ");
 
@@ -37,21 +41,18 @@ async function parse() {
   return info;
 }
 
-display();
-
-async function display() {
-  const arr = await parse();
+function dumbParser(arr) {
   const data = [];
 
-  // for (let x = 0; x < arr.length; x++) {
-  //   if (x % 19 == 0) {
-  //     data.push(arr[x]);
-  //   }
-  // }
-  console.log(data);
+  for (let x = 0; x < arr.length; x++) {
+    if (x % 19 == 0) {
+      data.push(arr[x]);
+    }
+  }
 }
 
 // (async () => {
+// const puppeteer = require("puppeteer");
 //   const browser = await puppeteer.launch({
 //     headless: true,
 //   });
