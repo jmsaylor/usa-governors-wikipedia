@@ -19,7 +19,17 @@ async function getDOM() {
 }
 
 function searchDOM(dom) {
-  return dom.querySelector("table").textContent;
+  let results = [];
+  for (let x = 2; x < dom.querySelector("table").rows.length; x++) {
+    let state = dom.querySelector("table").rows.item(x).cells.item(0)
+      .textContent;
+    let governor = dom.querySelector("table").rows.item(x).cells.item(2)
+      .textContent;
+    state = clean(state).trim();
+    governor = clean(governor).trim();
+    results.push([state, governor]);
+  }
+  return results;
 }
 
 display();
@@ -39,6 +49,10 @@ async function arraify(raw) {
   const [...info] = raw.split(" ");
 
   return info;
+}
+
+function clean(pre) {
+  return pre.replace(/[^a-z0-9]/gim, " ").replace(/\s+/g, " ");
 }
 
 function dumbParser(arr) {
