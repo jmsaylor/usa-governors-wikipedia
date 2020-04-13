@@ -1,0 +1,22 @@
+VISION:
+
+An API to keep track of elected officials and their associated Twitter accounts.
+
+Right now, I aim to take advantage of Twitter lists. And, to be able to programatically scrape info about members of any given public body and 
+then attempt to find their Twitter accounts.
+
+https://trello.com/b/EwqKcBIg/governors-project
+^Trello link for coordinated work. Please, fork this repo and help me build this.
+
+
+//--------------------------
+
+for: People interested in politics, public announcements, or government/democracy 
+
+who: want to connect directly with members of their government
+
+the: list aggregator 
+is a: crawler/scraper
+unlike:  
+our solution: to gather data from good sources as much as possible and verify it through different strategies to get accurate 
+information.
