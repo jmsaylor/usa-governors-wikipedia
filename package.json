@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "crypto": "^1.0.1",
     "jsdom": "^16.2.2",
+    "jssha": "^3.0.0",
+    "oauth-1.0a": "^2.2.6",
     "puppeteer": "^2.1.1"
   }
 }
