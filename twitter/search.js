@@ -12,16 +12,26 @@ const oauth = OAuth({
   },
 });
 
+let paramsList = {
+  place: { id: 1 },
+  //1 is World ID
+};
+
 //  "https://api.twitter.com/1.1/search/tweets.json?q=from%3Atwitterdev&result_type=mixed&count=2";
-const urls = [
-  "https://api.twitter.com/1.1/search/tweets.json?q=from%jmsaylor&result_type=mixed&count=2",
-  "https://api.twitter.com/1.1/users/show.json?screen_name=jmsaylor",
+let urls = [
+  "https://api.twitter.com/1.1/search/tweets.json",
+  "https://api.twitter.com/1.1/users/show.json",
   "https://api.twitter.com/1.1/statuses/home_timeline.json",
+  "https://api.twitter.com/1.1/trends/place.json",
 ];
 
-const method = "GET";
+params = paramsList.place;
 
-const url = urls[2];
+console.log(params);
+
+const url = urls[3] + "?id=1";
+console.log(url);
+const method = "GET";
 
 let headers = {
   method: method,
@@ -31,14 +41,11 @@ let headers = {
   },
 };
 
-// console.log(headers);
-
 async function search() {
-  console.log(url);
+  // console.log(url);
+  console.log(headers);
   try {
-    let results = await fetch(url, headers, {
-      data: { screen_name: "jmsaylor" },
-    });
+    let results = await fetch(url, headers);
 
     return results.json();
   } catch (error) {

@@ -24,6 +24,7 @@ function authorization(httpMethod, baseUrl, reqParams) {
     timestamp,
     nonce
   );
+  console.log(baseString);
   let signingKey = oAuthSigningKey(consumerSecret, accessTokenSecret);
   let signature = oAuthSignature(baseString, signingKey);
   // return interpolated string
@@ -115,6 +116,7 @@ function genSortedParamStr(params, key, token, timestamp, nonce) {
       "=" +
       percentEncode(decodeURIComponent(paramObj[paramObjKeys[i]]));
   }
+  //   console.log(paramStr);
   return paramStr;
 }
 
